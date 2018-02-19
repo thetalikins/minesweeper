@@ -5,28 +5,28 @@ document.addEventListener('DOMContentLoaded', startGame)
 
     var board = { }
       board.cells= [
-        {row: 0, col: 0, isMine: false, hidden: true, isMarked: false, surroundingMines:[1]}, 
-        {row: 0, col: 1, isMine: false, hidden: true, isMarked: false,surroundingMines:[1]},
-        {row: 0, col: 2, isMine: true, hidden: true, isMarked: false,surroundingMines:[0]},
-        {row: 0, col: 3, isMine: false, hidden: true, isMarked: false,surroundingMines:[1]},
-        {row:1, col: 0, isMine: true, hidden: true, isMarked: false,surroundingMines:[]}, 
-        {row:1, col: 1, isMine: true, hidden: true, isMarked: false,surroundingMines:[]},
-        {row:1, col: 2, isMine: true, hidden: true, isMarked: false,surroundingMines:[]},
-        {row:1, col: 3, isMine: false, hidden: true, isMarked: false,surroundingMines:[1]},
-        {row:2, col: 0, isMine: true, hidden: true, isMarked: false,surroundingMines:[]}, 
-        {row:2, col: 1, isMine: false,hidden: true, isMarked: false,surroundingMines:[1]},
-        {row:2, col: 2, isMine: true, hidden: true, isMarked: false,surroundingMines:[]},
-        {row:2, col: 3, isMine: false, hidden: true, isMarked: false,surroundingMines:[1]},
-        {row:3, col: 0, isMine: true, hidden: true, isMarked: false,surroundingMines:[]}, 
-        {row:3, col: 1, isMine: false, hidden: true, isMarked: false,surroundingMines:[1]},
-        {row:3, col: 2, isMine: true, hidden: true, isMarked: false,surroundingMines:[]},
-        {row:3, col: 3, isMine: false, hidden: true, isMarked: false,surroundingMines:[1]},
+        {row: 0, col: 0, isMine: false, hidden: true, isMarked: false}, 
+        {row: 0, col: 1, isMine: false, hidden: true, isMarked: false},
+        {row: 0, col: 2, isMine: true, hidden: true, isMarked: false},
+        {row: 0, col: 3, isMine: false, hidden: true, isMarked: false},
+        {row:1, col: 0, isMine: true, hidden: true, isMarked: false}, 
+        {row:1, col: 1, isMine: true, hidden: true, isMarked: false},
+        {row:1, col: 2, isMine: true, hidden: true, isMarked: false},
+        {row:1, col: 3, isMine: false, hidden: true, isMarked: false},
+        {row:2, col: 0, isMine: true, hidden: true, isMarked: false}, 
+        {row:2, col: 1, isMine: false,hidden: true, isMarked: false},
+        {row:2, col: 2, isMine: true, hidden: true, isMarked: false},
+        {row:2, col: 3, isMine: false, hidden: true, isMarked: false},
+        {row:3, col: 0, isMine: true, hidden: true, isMarked: false}, 
+        {row:3, col: 1, isMine: false, hidden: true, isMarked: false},
+        {row:3, col: 2, isMine: true, hidden: true, isMarked: false},
+        {row:3, col: 3, isMine: false, hidden: true, isMarked: false}
     ];
   
 
 function startGame () {
-  for (var i=0; i < board.cells.length; i++) {
-    board.cells.surroundingMines = countSurroundingMines(board.cells[i])
+  for (var i= 0; i < board.cells.length; i++) {
+    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
   }
   document.addEventListener("click", checkForWin)
   document.addEventListener("contextmenu", checkForWin)
@@ -40,14 +40,16 @@ function startGame () {
 // 2. Are all of the mines marked?
 function checkForWin () {
 for (var i=0; i <board.cells.length; i++) {
-  if (board.cells[i].isMarked && board.cells[i].isMarked == false) 
-  return;
+  if (board.cells[i].isMarked && board.cells[i].isMarked == false) { 
+    return;
 }
-else if  (board.cells[i].isMine == false & board.cells[i].hidden) 
- return;
+  else if  (board.cells[i].isMine == false & board.cells[i].hidden) {
+   return;
+  }
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
  lib.displayMessage('You win!')
+}
 }
 
 // Define this function to count the number of mines around the cell
@@ -61,8 +63,10 @@ else if  (board.cells[i].isMine == false & board.cells[i].hidden)
 function countSurroundingMines (cell) {
   var surroundingCells = lib.getSurroundingCells(cell.row, cell.col);
   var count = 0;
-  for (var i = 0; i <surrounding.length; i++); {
-    if (surrounding[i].isMine) count++
-    return count
+  for (var i = 0; i < surroundingCells.length; i++) {
+    if (surroundingCells[i].isMine) {
+      count++
+    }
   }
+  return count
 }
